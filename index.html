@@ -1,0 +1,1003 @@
+```html
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportAR — Экипировка и Спортивное Питание Будущего</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                            glow: '#a855f7'
+                        },
+                        darkbg: '#09090b',
+                        darkcard: '#121218',
+                        darkborder: '#222230'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'purple-glow': '0 0 25px -5px rgba(124, 58, 237, 0.4)',
+                        'purple-glow-lg': '0 0 50px -10px rgba(124, 58, 237, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Smooth Scroll & Animations */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass {
+            background: rgba(18, 18, 24, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Ambient Glow Pulse */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.08); }
+        }
+        .animate-glow {
+            animation: pulseGlow 6s infinite ease-in-out;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4c1d95;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7c3aed;
+        }
+
+        /* Heart Animation */
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(0.95); }
+            75% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+        .liked-anim {
+            animation: heartBeat 0.45s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-darkbg text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300 min-h-screen flex flex-col selection:bg-brand-600 selection:text-white">
+
+    <!-- Ambient Glowing Orbs Background (Dark Mode Visuals) -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 opacity-40 dark:opacity-70">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-brand-600/30 rounded-full blur-[120px] animate-glow"></div>
+        <div class="absolute top-1/2 -right-40 w-96 h-96 bg-purple-900/30 rounded-full blur-[140px] animate-glow" style="animation-delay: 3s;"></div>
+        <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-brand-800/20 rounded-full blur-[130px] animate-glow" style="animation-delay: 1.5s;"></div>
+    </div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 glass border-b border-gray-200 dark:border-darkborder transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-black via-brand-700 to-brand-500 flex items-center justify-center text-white shadow-purple-glow group-hover:scale-105 transition-transform duration-300">
+                    <i class="fa-solid fa-bolt text-xl text-brand-300"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-2xl font-extrabold tracking-wider bg-gradient-to-r from-gray-900 via-brand-600 to-purple-800 dark:from-white dark:via-brand-400 dark:to-purple-300 bg-clip-text text-transparent">
+                        Sport<span class="text-brand-500 dark:text-brand-400">AR</span>
+                    </span>
+                    <span class="text-[10px] tracking-widest text-gray-500 dark:text-gray-400 font-bold uppercase -mt-1">Performance Store</span>
+                </div>
+            </a>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex flex-1 max-w-md mx-6 relative">
+                <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Поиск товаров (например: Протеин, Кроссовки)..." 
+                    class="w-full bg-gray-100 dark:bg-darkcard text-sm border border-gray-300 dark:border-darkborder rounded-full py-2.5 pl-11 pr-4 focus:outline-none focus:border-brand-500 dark:focus:border-brand-500 transition-all duration-300 text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"></i>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex items-center gap-3 sm:gap-4">
+                
+                <!-- Night / Day Mode Toggle -->
+                <button id="themeToggle" onclick="toggleTheme()" class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-darkcard border border-gray-200 dark:border-darkborder flex items-center justify-center text-gray-600 dark:text-brand-300 hover:text-brand-600 dark:hover:text-brand-400 hover:border-brand-500/50 transition-all duration-300" title="Сменить тему">
+                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                </button>
+
+                <!-- Favorites Toggle / Badge -->
+                <button onclick="toggleFavoritesModal()" class="relative w-10 h-10 rounded-xl bg-gray-100 dark:bg-darkcard border border-gray-200 dark:border-darkborder flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 hover:border-red-500/30 transition-all duration-300" title="Избранное">
+                    <i class="fa-solid fa-heart"></i>
+                    <span id="favCount" class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-md scale-0 transition-transform duration-300">0</span>
+                </button>
+
+                <!-- Cart Button -->
+                <button onclick="toggleCart()" class="relative flex items-center gap-2 bg-gradient-to-r from-brand-600 to-purple-700 hover:from-brand-500 hover:to-purple-600 text-white px-4 py-2.5 rounded-xl font-semibold shadow-purple-glow hover:shadow-purple-glow-lg transition-all duration-300 group">
+                    <i class="fa-solid fa-cart-shopping group-hover:scale-110 transition-transform duration-300"></i>
+                    <span class="hidden sm:inline text-sm">Корзина</span>
+                    <span id="cartCount" class="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full font-bold ml-1">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Search Bar -->
+        <div class="md:hidden px-4 pb-3">
+            <div class="relative w-full">
+                <input type="text" id="mobileSearchInput" oninput="handleMobileSearch()" placeholder="Поиск товаров..." 
+                    class="w-full bg-gray-100 dark:bg-darkcard text-sm border border-gray-300 dark:border-darkborder rounded-full py-2 pl-10 pr-4 focus:outline-none focus:border-brand-500 text-gray-800 dark:text-gray-200">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow z-10">
+
+        <!-- HERO BANNER SECTION -->
+        <section class="relative overflow-hidden py-12 lg:py-20 border-b border-gray-200 dark:border-darkborder">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- Text Content -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-600 dark:text-brand-300 text-xs font-semibold uppercase tracking-wider">
+                            <span class="w-2 h-2 rounded-full bg-brand-500 animate-ping"></span>
+                            Новая коллекция 2025 &amp; Технологии AR
+                        </div>
+
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                            ТВОЙ ПИК <br class="hidden sm:block">
+                            <span class="bg-gradient-to-r from-brand-600 via-purple-500 to-indigo-500 dark:from-brand-400 dark:via-purple-300 dark:to-indigo-300 bg-clip-text text-transparent">
+                                ФИЗИЧЕСКОЙ ФОРМЫ
+                            </span>
+                        </h1>
+
+                        <p class="text-gray-600 dark:text-gray-400 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0">
+                            Премиальное спортивное питание, технологичная одежда и профессиональное снаряжение. Заряжайся энергией победы вместе с SportAR.
+                        </p>
+
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                            <a href="#catalog" class="px-8 py-3.5 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl shadow-purple-glow hover:shadow-purple-glow-lg transition-all duration-300 transform hover:-translate-y-0.5">
+                                В каталог <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </a>
+                            <a href="#sale" onclick="filterByCategory('nutrition')" class="px-8 py-3.5 bg-gray-200 dark:bg-darkcard border border-gray-300 dark:border-darkborder hover:border-brand-500 text-gray-800 dark:text-gray-200 font-semibold rounded-xl transition-all duration-300">
+                                Спортивное Питание
+                            </a>
+                        </div>
+
+                        <!-- Stats Badge Bar -->
+                        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-gray-200 dark:border-darkborder/60 max-w-lg mx-auto lg:mx-0 text-center">
+                            <div>
+                                <p class="text-2xl font-bold text-brand-600 dark:text-brand-400">100%</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Оригинал</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-brand-600 dark:text-brand-400">24/7</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Быстрая доставка</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-bold text-brand-600 dark:text-brand-400">15k+</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Клиентов</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Hero Dynamic Card -->
+                    <div class="lg:col-span-5 relative">
+                        <div class="relative mx-auto max-w-md rounded-3xl p-1 bg-gradient-to-b from-brand-500 via-purple-600 to-black shadow-purple-glow-lg">
+                            <div class="bg-gray-900 rounded-[22px] p-6 overflow-hidden relative">
+                                <span class="absolute top-4 right-4 bg-red-500 text-white font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                                    Хит сезона
+                                </span>
+                                <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80" 
+                                     alt="Sport Banner" 
+                                     class="w-full h-80 object-cover rounded-xl mb-4 transform hover:scale-105 transition-transform duration-500">
+                                <div class="text-left">
+                                    <h3 class="text-xl font-bold text-white mb-1">Фитнес Арсенал &amp; Экипировка</h3>
+                                    <p class="text-xs text-gray-400">Максимальная прочность и эргономика для ваших тренировок</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CATALOG SECTION -->
+        <section id="catalog" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header & Filter Navigation -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                <div>
+                    <h2 class="text-3xl font-extrabold tracking-tight">Каталог Товаров</h2>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Выберите категорию для быстрого поиска</p>
+                </div>
+
+                <!-- Category Filters Buttons -->
+                <div class="flex flex-wrap gap-2" id="categoryFilters">
+                    <button onclick="filterByCategory('all')" data-cat="all" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 bg-brand-600 text-white shadow-purple-glow">
+                        Все товары
+                    </button>
+                    <button onclick="filterByCategory('nutrition')" data-cat="nutrition" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 bg-gray-200 dark:bg-darkcard text-gray-700 dark:text-gray-300 hover:border-brand-500 border border-transparent">
+                        Спортивное питание
+                    </button>
+                    <button onclick="filterByCategory('supplements')" data-cat="supplements" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 bg-gray-200 dark:bg-darkcard text-gray-700 dark:text-gray-300 hover:border-brand-500 border border-transparent">
+                        Добавки
+                    </button>
+                    <button onclick="filterByCategory('arsenal')" data-cat="arsenal" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 bg-gray-200 dark:bg-darkcard text-gray-700 dark:text-gray-300 hover:border-brand-500 border border-transparent">
+                        Спортивный арсенал
+                    </button>
+                    <button onclick="filterByCategory('clothing')" data-cat="clothing" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 bg-gray-200 dark:bg-darkcard text-gray-700 dark:text-gray-300 hover:border-brand-500 border border-transparent">
+                        Одежда и Обувь
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sort Controls -->
+            <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200 dark:border-darkborder text-xs text-gray-500">
+                <span id="productCounter">Показано товаров: 8</span>
+                <div class="flex items-center gap-2">
+                    <label for="sortBy" class="hidden sm:inline">Сортировка:</label>
+                    <select id="sortBy" onchange="handleSort()" class="bg-gray-100 dark:bg-darkcard border border-gray-300 dark:border-darkborder text-gray-800 dark:text-gray-200 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-brand-500">
+                        <option value="default">По умолчанию</option>
+                        <option value="price-low">Сначала дешевле</option>
+                        <option value="price-high">Сначала дороже</option>
+                        <option value="rating">По рейтингу</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- PRODUCT GRID -->
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Dynamically Inserted Products via JS -->
+            </div>
+
+            <!-- Empty Search State -->
+            <div id="emptyState" class="hidden text-center py-16">
+                <div class="w-16 h-16 bg-brand-500/10 rounded-full flex items-center justify-center mx-auto text-brand-500 text-2xl mb-4">
+                    <i class="fa-solid fa-box-open"></i>
+                </div>
+                <h3 class="text-xl font-bold">Ничего не найдено</h3>
+                <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Попробуйте изменить запрос или категорию</p>
+                <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-brand-600 text-white rounded-xl text-sm font-semibold hover:bg-brand-500 transition-colors">
+                    Сбросить фильтры
+                </button>
+            </div>
+        </section>
+
+        <!-- ADVANTAGES / FEATURES SECTION -->
+        <section class="py-16 bg-gray-100/60 dark:bg-darkcard/50 border-y border-gray-200 dark:border-darkborder my-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <div class="flex items-start gap-4 p-4 rounded-2xl transition-all duration-300 hover:bg-white dark:hover:bg-darkcard border border-transparent hover:border-brand-500/20">
+                        <div class="w-12 h-12 rounded-xl bg-brand-600/10 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-truck-fast"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-base mb-1">Быстрая доставка</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Доставляем заказы по всей стране от 1 до 3 дней.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-4 rounded-2xl transition-all duration-300 hover:bg-white dark:hover:bg-darkcard border border-transparent hover:border-brand-500/20">
+                        <div class="w-12 h-12 rounded-xl bg-brand-600/10 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-base mb-1">Гарантия качества</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">100% сертификация всей продуктовой линейки.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-4 rounded-2xl transition-all duration-300 hover:bg-white dark:hover:bg-darkcard border border-transparent hover:border-brand-500/20">
+                        <div class="w-12 h-12 rounded-xl bg-brand-600/10 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-base mb-1">Простой возврат</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">30 дней на возврат или обмен без лишних вопросов.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-4 rounded-2xl transition-all duration-300 hover:bg-white dark:hover:bg-darkcard border border-transparent hover:border-brand-500/20">
+                        <div class="w-12 h-12 rounded-xl bg-brand-600/10 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-base mb-1">Поддержка 24/7</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Консультации тренеров и нутрициологов в чате.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-300 border-t border-gray-800 pt-12 pb-8 z-10 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                
+                <!-- Brand Info -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-9 h-9 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <span class="text-2xl font-extrabold text-white tracking-wider">Sport<span class="text-brand-400">AR</span></span>
+                    </div>
+                    <p class="text-sm text-gray-400 max-w-sm">
+                        Твоя инновационная экосистема для спорта, фитнеса и активного образа жизни. Достигай целей с лучшим экипом.
+                    </p>
+                    <div class="flex gap-3 pt-2">
+                        <a href="#" class="w-9 h-9 rounded-full bg-gray-800 hover:bg-brand-600 flex items-center justify-center text-gray-300 hover:text-white transition-colors">
+                            <i class="fa-brands fa-telegram"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-gray-800 hover:bg-brand-600 flex items-center justify-center text-gray-300 hover:text-white transition-colors">
+                            <i class="fa-brands fa-vk"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-gray-800 hover:bg-brand-600 flex items-center justify-center text-gray-300 hover:text-white transition-colors">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Navigation Links 1 -->
+                <div>
+                    <h5 class="text-white font-bold mb-4 text-sm uppercase tracking-wider">Каталог</h5>
+                    <ul class="space-y-2.5 text-sm text-gray-400">
+                        <li><a href="#catalog" onclick="filterByCategory('nutrition')" class="hover:text-brand-400 transition-colors">Спортивное питание</a></li>
+                        <li><a href="#catalog" onclick="filterByCategory('supplements')" class="hover:text-brand-400 transition-colors">Витамины и добавки</a></li>
+                        <li><a href="#catalog" onclick="filterByCategory('arsenal')" class="hover:text-brand-400 transition-colors">Инвентарь и арсенал</a></li>
+                        <li><a href="#catalog" onclick="filterByCategory('clothing')" class="hover:text-brand-400 transition-colors">Одежда и обувь</a></li>
+                    </ul>
+                </div>
+
+                <!-- Navigation Links 2 -->
+                <div>
+                    <h5 class="text-white font-bold mb-4 text-sm uppercase tracking-wider">Покупателям</h5>
+                    <ul class="space-y-2.5 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Доставка и оплата</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Программа лояльности</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Возврат товара</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contacts -->
+                <div>
+                    <h5 class="text-white font-bold mb-4 text-sm uppercase tracking-wider">Контакты</h5>
+                    <ul class="space-y-2.5 text-sm text-gray-400">
+                        <li><i class="fa-solid fa-phone text-brand-400 mr-2"></i> 8 (800) 555-35-35</li>
+                        <li><i class="fa-solid fa-envelope text-brand-400 mr-2"></i> support@sportar.ru</li>
+                        <li><i class="fa-solid fa-location-dot text-brand-400 mr-2"></i> Москва, ул. Спорта, 10</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+                <p>© 2025 SportAR Inc. Все права защищены.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:underline">Конфиденциальность</a>
+                    <a href="#" class="hover:underline">Оферта</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART SIDEBAR SLIDE-OVER -->
+    <div id="cartModal" class="fixed inset-0 z-50 overflow-hidden hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
+
+        <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
+            <div class="w-screen max-w-md bg-white dark:bg-darkcard shadow-2xl flex flex-col border-l border-gray-200 dark:border-darkborder">
+                
+                <!-- Cart Header -->
+                <div class="p-6 border-b border-gray-200 dark:border-darkborder flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-cart-shopping text-brand-500 text-xl"></i>
+                        <h3 class="text-lg font-extrabold">Ваша Корзина</h3>
+                    </div>
+                    <button onclick="toggleCart()" class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-200 p-2 rounded-lg">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Cart Items Container -->
+                <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4">
+                    <!-- Dynamic Cart Items Rendered Here -->
+                </div>
+
+                <!-- Cart Footer / Summary -->
+                <div class="p-6 border-t border-gray-200 dark:border-darkborder bg-gray-50 dark:bg-darkbg/50 space-y-4">
+                    <div class="flex justify-between text-sm text-gray-500 dark:text-gray-400">
+                        <span>Товары:</span>
+                        <span id="cartSubtotal" class="font-semibold text-gray-800 dark:text-gray-200">0 ₽</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-500 dark:text-gray-400">
+                        <span>Доставка:</span>
+                        <span class="text-green-500 font-semibold">Бесплатно</span>
+                    </div>
+                    <div class="flex justify-between text-base font-extrabold text-gray-900 dark:text-white pt-2 border-t border-gray-200 dark:border-darkborder">
+                        <span>Итого:</span>
+                        <span id="cartTotal" class="text-brand-600 dark:text-brand-400 text-xl">0 ₽</span>
+                    </div>
+
+                    <button onclick="checkout()" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-bold py-3.5 rounded-xl shadow-purple-glow hover:shadow-purple-glow-lg transition-all duration-300">
+                        Оформить Заказ
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- QUICK VIEW PRODUCT MODAL -->
+    <div id="productModal" class="fixed inset-0 z-50 flex items-center justify-center hidden px-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeProductModal()"></div>
+        
+        <div class="relative bg-white dark:bg-darkcard border border-gray-200 dark:border-darkborder rounded-3xl max-w-2xl w-full p-6 sm:p-8 z-10 overflow-hidden shadow-2xl transition-all">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <div id="modalContent" class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-center">
+                <!-- Modal Product Content Injected Here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FAVORITES MODAL -->
+    <div id="favModal" class="fixed inset-0 z-50 flex items-center justify-center hidden px-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="toggleFavoritesModal()"></div>
+        <div class="relative bg-white dark:bg-darkcard border border-gray-200 dark:border-darkborder rounded-3xl max-w-lg w-full p-6 z-10 shadow-2xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-heart text-red-500"></i> Избранное
+                </h3>
+                <button onclick="toggleFavoritesModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-white">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <div id="favModalItems" class="max-h-80 overflow-y-auto space-y-3">
+                <!-- Fav Items -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 bg-gray-900 text-white dark:bg-white dark:text-gray-900 px-5 py-3.5 rounded-2xl shadow-2xl border border-brand-500/30">
+        <div id="toastIcon" class="text-brand-400 text-lg">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <span id="toastMessage" class="text-sm font-semibold">Товар добавлен</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* ==========================================================================
+           1. EASY-TO-EDIT PRODUCT DATABASE
+           ВЫ МОЖЕТЕ ЛЕГКО ИЗМЕНИТЬ НАЗВАНИЯ, ЦЕНЫ, ИЗОБРАЖЕНИЯ И ОПИСАНИЯ ЗДЕСЬ
+           ========================================================================== */
+        let products = [
+            {
+                id: 1,
+                name: "Сывороточный Протеин Whey Gold 100%",
+                category: "nutrition",
+                price: 4500,
+                oldPrice: 5200,
+                rating: 4.9,
+                badge: "Хит Продаж",
+                image: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=600&q=80",
+                description: "Премиальный микрофильтрованный изолят сывороточного белка. 24г белка на порцию для максимального роста мышечной массы и чистого восстановления."
+            },
+            {
+                id: 2,
+                name: "Креатин Моногидрат Pure Power 500g",
+                category: "supplements",
+                price: 1890,
+                oldPrice: 2300,
+                rating: 4.8,
+                badge: "Топ Сила",
+                image: "https://images.unsplash.com/photo-1579722821273-0f6c7d44362f?auto=format&fit=crop&w=600&q=80",
+                description: "100% ультрачистый микронизированный креатин моногидрат. Повышает взрывную силу, выносливость и гидратацию мышечных клеток."
+            },
+            {
+                id: 3,
+                name: "Предтренировочный Комплекс Nitro Surge",
+                category: "nutrition",
+                price: 2990,
+                oldPrice: null,
+                rating: 5.0,
+                badge: "New Formula",
+                image: "https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=600&q=80",
+                description: "Мощная предтренировочная формула с бета-аланином, цитруллином и бетаином для невероятного пампинга, ментальной фокусировки и энергии."
+            },
+            {
+                id: 4,
+                name: "Кроссовки Running Speed Pro AR",
+                category: "clothing",
+                price: 12900,
+                oldPrice: 15500,
+                rating: 4.9,
+                badge: "-17%",
+                image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
+                description: "Технологичные беговые кроссовки с углеродной пластиной и амортизацией нового поколения. Идеальная вентиляция и сцепление."
+            },
+            {
+                id: 5,
+                name: "Гантели Разборные Rubber Grip 2x20 кг",
+                category: "arsenal",
+                price: 9800,
+                oldPrice: 11000,
+                rating: 4.7,
+                badge: "Арсенал",
+                image: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80",
+                description: "Набор разборных гантелей с обрезиненными дисками. Не шумят, не повреждают напольное покрытие, надежные зажимы-гайки."
+            },
+            {
+                id: 6,
+                name: "Компрессионный Костюм CyberFit Purple",
+                category: "clothing",
+                price: 6400,
+                oldPrice: 7200,
+                rating: 4.8,
+                badge: "AR Style",
+                image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=600&q=80",
+                description: "Анатомический компрессионный комплект (рашгард + тайтсы). Улучшает кровообращение, отводит влагу и поддерживает мышцы разогретыми."
+            },
+            {
+                id: 7,
+                name: "Омега-3 Fish Oil High Power 120 капсул",
+                category: "supplements",
+                price: 1650,
+                oldPrice: null,
+                rating: 4.9,
+                badge: "Здоровье",
+                image: "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=600&q=80",
+                description: "Высококонцентрированный жир океанических рыб с высокой дозировкой EPA и DHA. Поддержка суставов, сердца и иммунитета."
+            },
+            {
+                id: 8,
+                name: "Боксерские Перчатки Leather Pro 14 oz",
+                category: "arsenal",
+                price: 5400,
+                oldPrice: 6000,
+                rating: 4.6,
+                badge: "Pro Gear",
+                image: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=600&q=80",
+                description: "Натуральная воловья кожа, многослойный ударопоглощающий пенный наполнитель. Надежная фиксация запястья."
+            }
+        ];
+
+        /* STATE MANAGEMENT */
+        let cart = [];
+        let favorites = new Set();
+        let currentCategory = 'all';
+        let searchQuery = '';
+
+        /* INITIALIZATION */
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartUI();
+            updateFavUI();
+        });
+
+        /* THEME TOGGLE (DARK / LIGHT MODE) */
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                themeIcon.className = 'fa-solid fa-sun text-amber-500';
+            } else {
+                html.classList.add('dark');
+                themeIcon.className = 'fa-solid fa-moon text-brand-300';
+            }
+        }
+
+        /* PRODUCT RENDER FUNCTION */
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            let filtered = products.filter(p => {
+                const matchesCat = currentCategory === 'all' || p.category === currentCategory;
+                const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      p.description.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCat && matchesSearch;
+            });
+
+            document.getElementById('productCounter').innerText = `Показано товаров: ${filtered.length}`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            grid.innerHTML = filtered.map(product => {
+                const isLiked = favorites.has(product.id);
+                return `
+                <div class="group relative bg-white dark:bg-darkcard border border-gray-200 dark:border-darkborder rounded-2xl overflow-hidden hover:border-brand-500/50 hover:shadow-purple-glow transition-all duration-300 flex flex-col justify-between">
+                    
+                    <!-- Image & Badges Container -->
+                    <div class="relative overflow-hidden bg-gray-100 dark:bg-gray-800/40 aspect-square cursor-pointer" onclick="openProductModal(${product.id})">
+                        ${product.badge ? `<span class="absolute top-3 left-3 z-10 bg-brand-600 text-white font-extrabold text-[10px] px-2.5 py-1 rounded-md uppercase tracking-wider shadow-md">${product.badge}</span>` : ''}
+                        
+                        <button onclick="event.stopPropagation(); toggleLike(${product.id})" 
+                                class="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/80 dark:bg-darkcard/80 backdrop-blur-md flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors shadow-sm">
+                            <i class="${isLiked ? 'fa-solid fa-heart text-red-500 liked-anim' : 'fa-regular fa-heart'}"></i>
+                        </button>
+
+                        <img src="${product.image}" alt="${product.name}" 
+                             class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500 ease-out">
+                        
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="bg-white/90 dark:bg-darkcard/90 text-gray-900 dark:text-white font-bold text-xs px-4 py-2 rounded-xl backdrop-blur-sm transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                                <i class="fa-solid fa-eye mr-1"></i> Быстрый просмотр
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-xs text-gray-400 mb-1">
+                                <span class="capitalize">${getCategoryName(product.category)}</span>
+                                <span class="text-amber-400 font-bold flex items-center gap-1">
+                                    <i class="fa-solid fa-star text-[10px]"></i> ${product.rating}
+                                </span>
+                            </div>
+
+                            <h3 class="font-bold text-base text-gray-900 dark:text-gray-100 line-clamp-1 group-hover:text-brand-500 transition-colors cursor-pointer" onclick="openProductModal(${product.id})">
+                                ${product.name}
+                            </h3>
+
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1.5 line-clamp-2 leading-relaxed">
+                                ${product.description}
+                            </p>
+                        </div>
+
+                        <!-- Price & Action -->
+                        <div class="mt-4 pt-3 border-t border-gray-100 dark:border-darkborder/60 flex items-center justify-between">
+                            <div>
+                                <div class="text-lg font-extrabold text-gray-900 dark:text-white">
+                                    ${product.price.toLocaleString()} ₽
+                                </div>
+                                ${product.oldPrice ? `<div class="text-xs text-gray-400 line-through -mt-1">${product.oldPrice.toLocaleString()} ₽</div>` : ''}
+                            </div>
+
+                            <button onclick="addToCart(${product.id})" class="bg-gray-100 dark:bg-brand-600/20 hover:bg-brand-600 hover:text-white text-brand-600 dark:text-brand-300 p-2.5 rounded-xl border border-brand-500/30 hover:border-transparent transition-all duration-300 active:scale-95" title="Добавить в корзину">
+                                <i class="fa-solid fa-cart-plus text-base"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                `;
+            }).join('');
+        }
+
+        /* CATEGORY FILTERING */
+        function filterByCategory(category) {
+            currentCategory = category;
+            
+            // Update active button visual state
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.getAttribute('data-cat') === category) {
+                    btn.className = "cat-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 bg-brand-600 text-white shadow-purple-glow";
+                } else {
+                    btn.className = "cat-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 bg-gray-200 dark:bg-darkcard text-gray-700 dark:text-gray-300 hover:border-brand-500 border border-transparent";
+                }
+            });
+
+            renderProducts();
+        }
+
+        function getCategoryName(cat) {
+            const names = {
+                nutrition: 'Спортивное питание',
+                supplements: 'Добавки',
+                arsenal: 'Спортивный арсенал',
+                clothing: 'Одежда и Обувь'
+            };
+            return names[cat] || 'Разное';
+        }
+
+        /* SEARCH HANDLERS */
+        function handleSearch() {
+            searchQuery = document.getElementById('searchInput').value;
+            renderProducts();
+        }
+        function handleMobileSearch() {
+            searchQuery = document.getElementById('mobileSearchInput').value;
+            renderProducts();
+        }
+
+        function resetFilters() {
+            searchQuery = '';
+            document.getElementById('searchInput').value = '';
+            document.getElementById('mobileSearchInput').value = '';
+            filterByCategory('all');
+        }
+
+        /* SORTING HANDLER */
+        function handleSort() {
+            const val = document.getElementById('sortBy').value;
+            if (val === 'price-low') {
+                products.sort((a,b) => a.price - b.price);
+            } else if (val === 'price-high') {
+                products.sort((a,b) => b.price - a.price);
+            } else if (val === 'rating') {
+                products.sort((a,b) => b.rating - a.rating);
+            } else {
+                products.sort((a,b) => a.id - b.id);
+            }
+            renderProducts();
+        }
+
+        /* LIKE / FAVORITES SYSTEM */
+        function toggleLike(id) {
+            if (favorites.has(id)) {
+                favorites.delete(id);
+                showToast("Удалено из избранного", "info");
+            } else {
+                favorites.add(id);
+                showToast("Добавлено в избранное!", "success");
+            }
+            updateFavUI();
+            renderProducts();
+        }
+
+        function updateFavUI() {
+            const favCount = document.getElementById('favCount');
+            favCount.innerText = favorites.size;
+            if (favorites.size > 0) {
+                favCount.classList.remove('scale-0');
+            } else {
+                favCount.classList.add('scale-0');
+            }
+        }
+
+        function toggleFavoritesModal() {
+            const modal = document.getElementById('favModal');
+            const itemsContainer = document.getElementById('favModalItems');
+            
+            if (modal.classList.contains('hidden')) {
+                const favProducts = products.filter(p => favorites.has(p.id));
+                if (favProducts.length === 0) {
+                    itemsContainer.innerHTML = `<p class="text-center text-gray-500 py-6 text-sm">У вас пока нет избранных товаров.</p>`;
+                } else {
+                    itemsContainer.innerHTML = favProducts.map(p => `
+                        <div class="flex items-center justify-between p-2 rounded-xl bg-gray-100 dark:bg-darkbg">
+                            <div class="flex items-center gap-3">
+                                <img src="${p.image}" class="w-12 h-12 object-cover rounded-lg">
+                                <div>
+                                    <p class="font-bold text-sm line-clamp-1">${p.name}</p>
+                                    <p class="text-xs text-brand-500 font-semibold">${p.price.toLocaleString()} ₽</p>
+                                </div>
+                            </div>
+                            <button onclick="addToCart(${p.id})" class="px-3 py-1.5 bg-brand-600 text-white rounded-lg text-xs font-semibold">
+                                В корзину
+                            </button>
+                        </div>
+                    `).join('');
+                }
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        /* CART SYSTEM */
+        function addToCart(productId) {
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                const p = products.find(prod => prod.id === productId);
+                cart.push({ ...p, qty: 1 });
+            }
+            updateCartUI();
+            showToast("Товар добавлен в корзину!", "success");
+        }
+
+        function updateCartQty(id, change) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += change;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const countElem = document.getElementById('cartCount');
+            const container = document.getElementById('cartItemsContainer');
+            const subtotalElem = document.getElementById('cartSubtotal');
+            const totalElem = document.getElementById('cartTotal');
+
+            const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
+            const totalPrice = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+
+            countElem.innerText = totalQty;
+            subtotalElem.innerText = `${totalPrice.toLocaleString()} ₽`;
+            totalElem.innerText = `${totalPrice.toLocaleString()} ₽`;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <i class="fa-solid fa-basket-shopping text-4xl text-gray-300 dark:text-gray-600 mb-3"></i>
+                        <p class="text-gray-500 dark:text-gray-400 font-medium">Ваша корзина пуста</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="flex items-center gap-4 p-3 bg-gray-50 dark:bg-darkbg rounded-2xl border border-gray-200 dark:border-darkborder">
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl">
+                    
+                    <div class="flex-1">
+                        <h4 class="font-bold text-sm line-clamp-1">${item.name}</h4>
+                        <div class="text-brand-600 dark:text-brand-400 font-extrabold text-sm mt-0.5">
+                            ${item.price.toLocaleString()} ₽
+                        </div>
+
+                        <div class="flex items-center gap-2 mt-2">
+                            <button onclick="updateCartQty(${item.id}, -1)" class="w-6 h-6 rounded-md bg-gray-200 dark:bg-darkcard text-xs flex items-center justify-center font-bold hover:bg-brand-500 hover:text-white transition-colors">-</button>
+                            <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
+                            <button onclick="updateCartQty(${item.id}, 1)" class="w-6 h-6 rounded-md bg-gray-200 dark:bg-darkcard text-xs flex items-center justify-center font-bold hover:bg-brand-500 hover:text-white transition-colors">+</button>
+                        </div>
+                    </div>
+
+                    <button onclick="removeFromCart(${item.id})" class="text-gray-400 hover:text-red-500 p-2 transition-colors">
+                        <i class="fa-solid fa-trash-can text-sm"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showToast("Корзина пуста!", "error");
+                return;
+            }
+            alert("Заказ успешно оформлен! Спасибо за покупку в SportAR.");
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+
+        /* QUICK VIEW MODAL */
+        function openProductModal(productId) {
+            const p = products.find(prod => prod.id === productId);
+            if (!p) return;
+
+            const modalContent = document.getElementById('modalContent');
+            const isLiked = favorites.has(p.id);
+
+            modalContent.innerHTML = `
+                <div class="relative aspect-square rounded-2xl overflow-hidden bg-gray-100 dark:bg-darkbg">
+                    <img src="${p.image}" class="w-full h-full object-cover">
+                </div>
+                <div class="flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-500">${getCategoryName(p.category)}</span>
+                        <h2 class="text-2xl font-extrabold mt-1">${p.name}</h2>
+                        <div class="flex items-center gap-2 mt-2">
+                            <span class="text-amber-400 text-sm"><i class="fa-solid fa-star"></i> ${p.rating}</span>
+                            <span class="text-xs text-gray-400">| 100% Гарантия качества</span>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-3 leading-relaxed">
+                            ${p.description}
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="text-3xl font-extrabold text-brand-600 dark:text-brand-400 mb-4">
+                            ${p.price.toLocaleString()} ₽
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <button onclick="addToCart(${p.id}); closeProductModal();" class="flex-1 bg-brand-600 hover:bg-brand-500 text-white font-bold py-3 rounded-xl shadow-purple-glow transition-all duration-300 text-sm">
+                                <i class="fa-solid fa-cart-shopping mr-2"></i> В Корзину
+                            </button>
+                            <button onclick="toggleLike(${p.id}); openProductModal(${p.id});" class="w-12 h-12 rounded-xl bg-gray-100 dark:bg-darkbg flex items-center justify-center text-gray-500 hover:text-red-500 border border-gray-200 dark:border-darkborder">
+                                <i class="${isLiked ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart'} text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('productModal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.add('hidden');
+        }
+
+        /* TOAST NOTIFICATION UTILITY */
+        function showToast(message, type = "success") {
+            const toast = document.getElementById('toast');
+            const msgElem = document.getElementById('toastMessage');
+            const iconElem = document.getElementById('toastIcon');
+
+            msgElem.innerText = message;
+            
+            if (type === 'success') {
+                iconElem.innerHTML = `<i class="fa-solid fa-circle-check text-green-400"></i>`;
+            } else if (type === 'info') {
+                iconElem.innerHTML = `<i class="fa-solid fa-circle-info text-brand-400"></i>`;
+            } else {
+                iconElem.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-red-400"></i>`;
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
+```
